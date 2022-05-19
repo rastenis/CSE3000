@@ -13,6 +13,7 @@ verified_count=0
 filtered_out_count=0
 pr_count_unmerged=0
 filtered_out_count_waiting=0
+support_core=0
 
 with open(filename) as f:
     data = json.load(f)
@@ -36,6 +37,9 @@ with open(filename) as f:
         if "has_pr" in labelsMapped:
             pr_label_count=pr_label_count+1
 
+        if "support:core" in labelsMapped:
+            support_core=support_core+1
+
         if "verified" in labelsMapped:
             verified_count=verified_count+1
 
@@ -44,8 +48,9 @@ with open(filename) as f:
         print("BUG TITLE: '{}', LABELS: {}".format(ob["data"]["title"],labelsMapped))
         if "pull_request" in ob["data"]:
             pr_count=pr_count+1
-            if "merged_at" not in ob["data"]["pull_request"]:
+            if ob["data"]["pull_request"]["merged_at"] is None:
                 pr_count_unmerged=pr_count_unmerged+1
+                continue
 
             print(ob["data"]["pull_request"]) 
         else:
@@ -58,6 +63,7 @@ print("{} Bugs with PRs.".format(pr_count))
 print("{} Verified bugs.".format(verified_count))
 print("{} Bugs with the 'has_pr' label.".format(pr_label_count))
 print("{} Documentation Bugs Filtered out, leaving {}.".format(filtered_out_count,pr_count-filtered_out_count))
-print("unmerged ",pr_count_unmerged)
-print("{} 'Waiting on contributor' Bugs Filtered out, leaving {}.".format(filtered_out_count_waiting,pr_count-filtered_out_count-filtered_out_count_waiting))
+print("{} Unmerged PRs.".format(pr_count_unmerged))
+print("{} support:core.".format(support_core))
+print("{} Remaining Bugs.".format(pr_count-filtered_out_count-filtered_out_count_waiting-pr_count_unmerged))
 

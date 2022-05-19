@@ -18,8 +18,6 @@ with open(filename) as f:
         if "bug" not in labelsMapped:
             continue
 
-        if "docs" in labelsMapped or "docsite" in labelsMapped or "docsite_pr" in labelsMapped :
-            continue
 
         bug_count=bug_count+1
         print("=====")
