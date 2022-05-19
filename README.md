@@ -1,6 +1,10 @@
 # CSE3000 - A study of bugs in the Ansible configuration management system
 
-This project contains the code for gathering, processing, and analysing bug data.
+This project contains the code for gathering, processing, and analysing bug data of the Ansible configuration management system.
+
+The data fetching is implemented using Perceval. The processing and serialization is done in Python, and analysis is done in Python as well.
+
+
 
 ## Setup
 
