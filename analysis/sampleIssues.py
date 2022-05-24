@@ -26,22 +26,25 @@ with open(filename) as f:
         if "waiting_on_contributor" in labelsMapped or "needs_revision" in labelsMapped:
             continue
 
-        if "pull_request" not in ob["data"]:
-            continue
-
         if "issues" not in ob["data"]["html_url"]:
             continue
 
-        if ob["data"]["pull_request"]["merged_at"] is None:
+        if "Bug Report" not in ob["data"]["body"]:
             continue
 
+        del ob["data"]["user"]
+        del ob["data"]["user_data"]
+        del ob["data"]["comments_data"]
+
         picked=picked+1
+
+        print(ob["data"])
   
-        print("=====")
-        print("SAMPLE #{}.".format(picked))
-        print("BUG TITLE: '{}'".format(ob["data"]["title"]))
-        print("BUG LABELS: '{}'".format(labelsMapped))
-        print("BUG URL: '{}'".format(ob["data"]["html_url"]))
-        print("PULL REQUEST URL: ",ob["data"]["pull_request"]["html_url"]) 
-        print("PULL REQUEST MERGED AT: ",ob["data"]["pull_request"]["merged_at"]) 
-        print("=====")
+        # print("=====")
+        # print("SAMPLE #{}.".format(picked))
+        # print("BUG TITLE: '{}'".format(ob["data"]["title"]))
+        # print("BUG LABELS: '{}'".format(labelsMapped))
+        # print("BUG URL: '{}'".format(ob["data"]["html_url"]))
+        # print("PULL REQUEST URL: ",ob["data"]["pull_request"]["html_url"]) 
+        # print("PULL REQUEST MERGED AT: ",ob["data"]["pull_request"]["merged_at"]) 
+        # print("=====")
