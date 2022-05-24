@@ -26,6 +26,9 @@ with open(filename) as f:
         if "bug" not in labelsMapped:
             continue
 
+        if "issues" not in ob["data"]["html_url"]:
+            continue
+
         if "docs" in labelsMapped or "docsite" in labelsMapped or "docsite_pr" in labelsMapped:
             filtered_out_count=filtered_out_count+1
             continue
